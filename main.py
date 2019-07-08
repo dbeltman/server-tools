@@ -16,8 +16,8 @@ def process_command(command):
 
 	elif command == 'manual':
 		if 10 <= int(request.args['fanspeed']) <= 100:
-			output = 'Setting fan speed to ' + str(request.args['fanspeed'])
-		# output = components.fanctl.set_fan_manual(fanspeed)
+			# output = 'Setting fan speed to ' + str(request.args['fanspeed'])
+			output = components.fanctl.set_fan_manual(int(request.args['fanspeed']))
 		else:
 			return 'not an integer, or invalid value!'
 

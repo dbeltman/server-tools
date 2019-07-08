@@ -22,4 +22,4 @@ def set_fan_manual(value):
 def get_fan_status():
 	process = Popen(['sudo', '/bin/bash', '/home/dbtman/fanctl.sh', 'status'], stdout=PIPE, stderr=PIPE)
 	stdout, stderr = process.communicate()
-	return str(stdout)
+	return stdout
