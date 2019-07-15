@@ -7,7 +7,7 @@ def set_auto():
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="poweredge", username="dbtman", pkey=key)
+	conn.connect(hostname="poweredge", username="jobrunner", pkey=key)
 	print("connected")
 	command = "sudo bash ~/fanctl.sh auto"
 	print("Executing {}".format(command))
@@ -26,7 +26,7 @@ def set_manual(value):
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="192.168.178.58", username="jobrunner", pkey=key)
+	conn.connect(hostname="poweredge", username="jobrunner", pkey=key)
 	print("connected")
 	commands = "sudo bash ~/R510-Denoiser/scripts/dellfanctl.sh manual && sudo bash ~/R510-Denoiser/scripts/dellfanctl.sh set " + str(value)
 	print("Executing {}".format(commands))
@@ -45,7 +45,7 @@ def get_status():
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="poweredge", username="dbtman", pkey=key)
+	conn.connect(hostname="poweredge", username="jobrunner", pkey=key)
 	print("connected")
 	commands = "sudo bash ~/R510-Denoiser/scripts/dellfanctl.sh status"
 	print("Executing {}".format(commands))
