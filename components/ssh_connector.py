@@ -67,7 +67,7 @@ def get_auto_status():
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="poweredge", username="jobrunner", pkey=key)
+	conn.connect(hostname="192.168.178.58", username="jobrunner", pkey=key)
 	print("connected")
 	commands = "ls /home/dbtman/R510-Denoiser/auto.flag"
 	print("Executing {}".format(commands))
