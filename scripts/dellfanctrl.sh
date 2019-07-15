@@ -32,9 +32,11 @@ if [[ $# == 0 ]]; then
         usage_example
 else
         if [[ $1 == "auto" ]]; then
-                runthis "ipmitool raw 0x30 0x30 0x01 0x01 && touch /home/dbtman/R510-Denoiser/auto.flag"
+                runthis "ipmitool raw 0x30 0x30 0x01 0x01"
+                touch /home/dbtman/R510-Denoiser/auto.flag
         elif [[ $1 == "manual" ]]; then
-                runthis "ipmitool raw 0x30 0x30 0x01 0x00 && rm /home/dbtman/R510-Denoiser/auto.flag"
+                runthis "ipmitool raw 0x30 0x30 0x01 0x00"
+                rm /home/dbtman/R510-Denoiser/auto.flag
         elif [[ $1 == "set" ]]; then
                 SET_SPEED=15
                 if [[ $2 -gt 0 ]] && [[ $2 -le 100 ]]; then
