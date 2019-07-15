@@ -63,3 +63,20 @@ def get_status():
 		cleanoutput.append(line.decode('UTF-8'))
 	conn.close()
 	return cleanoutput
+def get_auto_status():
+	conn = paramiko.SSHClient()
+	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+	print("connecting")
+	conn.connect(hostname="poweredge", username="jobrunner", pkey=key)
+	print("connected")
+	commands = "ls /home/dbtman/R510-Denoiser/auto.flag"
+	print("Executing {}".format(commands))
+	stdin, stdout, stderr = conn.exec_command(commands)
+	output = stdout.read()
+	print(stdout.read())
+	print("Errors")
+	errors = stderr.read()
+	print(errors)
+
+
+	return errors

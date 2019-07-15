@@ -1,5 +1,7 @@
 from flask import Flask, request
+
 import components.fanctl
+import components.ssh_connector as sshconnect
 
 app = Flask(__name__)
 
@@ -22,10 +24,15 @@ def process_command(command):
 			return 'not an integer, or invalid value!'
 
 	elif command == 'status':
-		output = components.fanctl.get_fan_status()
+		output = sshconnect.get_auto_status()
+		if 'No such file or directory' in str(output):
+			status = '0'
+		else:
+			status = '1'
+		return status
 
 	else:
-		output = 'Commmand not recognised'
+		output = 'Command not recognised'
 	return output
 
 
