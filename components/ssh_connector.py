@@ -1,6 +1,7 @@
 import paramiko
 
 key = paramiko.RSAKey.from_private_key_file("static/poweredge.key")
+script_path = "/home/dbtman/R510-Denoiser/scripts/dellfanctrl.sh"
 
 
 def set_auto():
@@ -9,7 +10,7 @@ def set_auto():
 	print("connecting")
 	conn.connect(hostname="poweredge", username="jobrunner", pkey=key)
 	print("connected")
-	command = "sudo bash ~/fanctl.sh auto"
+	command = "sudo bash " + script_path + " auto"
 	print("Executing {}".format(command))
 	stdin, stdout, stderr = conn.exec_command(command)
 	output = stdout.read()
@@ -28,7 +29,7 @@ def set_manual(value):
 	print("connecting")
 	conn.connect(hostname="poweredge", username="jobrunner", pkey=key)
 	print("connected")
-	commands = "sudo bash ~/R510-Denoiser/scripts/dellfanctl.sh manual && sudo bash ~/R510-Denoiser/scripts/dellfanctl.sh set " + str(value)
+	commands = "sudo bash " + script_path + " manual && sudo bash " + script_path + " set " + str(value)
 	print("Executing {}".format(commands))
 	stdin, stdout, stderr = conn.exec_command(commands)
 	output = stdout.read()
@@ -47,7 +48,7 @@ def get_status():
 	print("connecting")
 	conn.connect(hostname="poweredge", username="jobrunner", pkey=key)
 	print("connected")
-	commands = "sudo bash ~/R510-Denoiser/scripts/dellfanctl.sh status"
+	commands = "sudo bash "+ script_path + " status"
 	print("Executing {}".format(commands))
 	stdin, stdout, stderr = conn.exec_command(commands)
 	output = stdout.read()
