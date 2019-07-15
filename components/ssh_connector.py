@@ -8,7 +8,7 @@ def set_auto():
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="poweredge", username="jobrunner", pkey=key)
+	conn.connect(hostname="192.168.178.58", username="jobrunner", pkey=key)
 	print("connected")
 	command = "sudo bash " + script_path + " auto"
 	print("Executing {}".format(command))
@@ -27,7 +27,7 @@ def set_manual(value):
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="poweredge", username="jobrunner", pkey=key)
+	conn.connect(hostname="192.168.178.58", username="jobrunner", pkey=key)
 	print("connected")
 	commands = "sudo bash " + script_path + " manual && sudo bash " + script_path + " set " + str(value)
 	print("Executing {}".format(commands))
@@ -46,7 +46,7 @@ def get_status():
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="poweredge", username="jobrunner", pkey=key)
+	conn.connect(hostname="192.168.178.58", username="jobrunner", pkey=key)
 	print("connected")
 	commands = "sudo bash "+ script_path + " status"
 	print("Executing {}".format(commands))
