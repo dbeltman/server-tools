@@ -26,7 +26,7 @@ def set_manual(value):
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="poweredge", username="dbtman", pkey=key)
+	conn.connect(hostname="192.168.178.58", username="jobrunner", pkey=key)
 	print("connected")
 	commands = "sudo bash ~/R510-Denoiser/scripts/dellfanctl.sh manual && sudo bash ~/R510-Denoiser/scripts/dellfanctl.sh set " + str(value)
 	print("Executing {}".format(commands))
