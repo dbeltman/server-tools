@@ -39,7 +39,7 @@ else
         elif [[ $1 == "manual" ]]; then
                 runthis "ipmitool raw 0x30 0x30 0x01 0x00"
                 if [[ -f /home/dbtman/R510-Denoiser/auto.flag ]]; then
-                    touch /home/dbtman/R510-Denoiser/auto.flag
+                    rm /home/dbtman/R510-Denoiser/auto.flag
                 fi
         elif [[ $1 == "set" ]]; then
                 SET_SPEED=15
