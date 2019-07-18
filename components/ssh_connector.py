@@ -48,7 +48,7 @@ def get_status():
 	print("connecting")
 	conn.connect(hostname="192.168.178.58", username="jobrunner", pkey=key)
 	print("connected")
-	commands = "sudo bash "+ script_path + " status"
+	commands = "sudo bash " + script_path + " status"
 	print("Executing {}".format(commands))
 	stdin, stdout, stderr = conn.exec_command(commands)
 	output = stdout.read()
@@ -63,6 +63,8 @@ def get_status():
 		cleanoutput.append(line.decode('UTF-8'))
 	conn.close()
 	return cleanoutput
+
+
 def get_auto_status():
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -77,6 +79,5 @@ def get_auto_status():
 	print("Errors")
 	errors = stderr.read()
 	print(errors)
-
 
 	return errors

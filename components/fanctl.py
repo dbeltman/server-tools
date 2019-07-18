@@ -21,7 +21,7 @@ def set_fan_manual(value):
 	return stdout
 
 
-def get_fan_status():
+def get_detailed_status():
 	# process = Popen(['ssh', 'poweredge-r510', '~/R510-Denoiser/scripts/dellfanctl.sh', 'status'], stdout=PIPE, stderr=PIPE)
 	# stdout, stderr = process.communicate()
 	stdout = str(sshconnect.get_status())

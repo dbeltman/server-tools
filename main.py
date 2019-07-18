@@ -2,7 +2,7 @@ from flask import Flask, request
 
 import components.fanctl
 import components.ssh_connector as sshconnect
-
+import components.get_temp as get_temp
 app = Flask(__name__)
 
 
@@ -30,6 +30,14 @@ def process_command(command):
 		else:
 			status = '1'
 		return status
+	elif command == 'detailstatus':
+		output = components.fanctl.get_detailed_status()
+
+		return output
+
+	elif command == 'tempstatus':
+		temp = get_temp.get_ambient_temp()
+		return str(temp)
 
 	else:
 		output = 'Command not recognised'
