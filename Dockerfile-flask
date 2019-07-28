@@ -7,6 +7,7 @@ FROM python:3 AS runner
 # Set an environment variable with the directory
 # where we'll be running the app
 ENV APP /app
+ENV environment prod
 # Create the directory and instruct Docker to operate
 # from there from now on
 RUN mkdir $APP

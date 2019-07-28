@@ -1,6 +1,10 @@
 import paramiko
+import os
+if os.environ['environment'] == 'prod':
+	key = paramiko.RSAKey.from_private_key_file("/secrets/poweredge.key")
+else:
+	key = paramiko.RSAKey.from_private_key_file("static/poweredge.key")
 
-key = paramiko.RSAKey.from_private_key_file("static/poweredge.key")
 script_path = "/home/dbtman/R510-Denoiser/scripts/dellfanctrl.sh"
 
 
