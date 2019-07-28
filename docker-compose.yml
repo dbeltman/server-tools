@@ -2,17 +2,11 @@
 version: '3'
 services:
   flask:
-    image: webapp-flask
-    build:
-      context: .
-      dockerfile: Dockerfile-flask
+    image: dockerdaan/denoiser-flask
     volumes:
       - "./:/app"
   nginx:
-    image: webapp-nginx
-    build:
-      context: .
-      dockerfile: Dockerfile-nginx
+    image: dockerdaan/denoiser-nginx
     ports:
       - 5050:80
     depends_on:
