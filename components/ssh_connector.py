@@ -32,7 +32,7 @@ def set_manual(value):
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="$TARGETHOST", username="jobrunner", pkey=key)
+	conn.connect(hostname=host, username="jobrunner", pkey=key)
 	print("connected")
 	commands = "sudo bash " + script_path + " manual && sudo bash " + script_path + " set " + str(value)
 	print("Executing {}".format(commands))
@@ -51,7 +51,7 @@ def get_status():
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="$TARGETHOST", username="jobrunner", pkey=key)
+	conn.connect(hostname=host, username="jobrunner", pkey=key)
 	print("connected")
 	commands = "sudo bash " + script_path + " status"
 	print("Executing {}".format(commands))
@@ -74,7 +74,7 @@ def get_auto_status():
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="$TARGETHOST", username="jobrunner", pkey=key)
+	conn.connect(hostname=host, username="jobrunner", pkey=key)
 	print("connected")
 	commands = "ls /home/dbtman/R510-Denoiser/auto.flag"
 	print("Executing {}".format(commands))
