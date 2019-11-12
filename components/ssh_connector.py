@@ -13,7 +13,7 @@ def set_auto():
 	conn = paramiko.SSHClient()
 	conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print("connecting")
-	conn.connect(hostname="$TARGETHOST", username="jobrunner", pkey=key)
+	conn.connect(hostname=host, username="jobrunner", pkey=key)
 	print("connected")
 	command = "sudo bash " + script_path + " auto"
 	print("Executing {}".format(command))
