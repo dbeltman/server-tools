@@ -35,6 +35,7 @@ config_template = {
   },
   "command_topic": mqtt_control_topic,
   "percentage_state_topic": mqtt_state_topic,
+  "pct_cmd_t": mqtt_control_topic,
   "payload_on": "auto",
   "payload_off": "1"
 }
