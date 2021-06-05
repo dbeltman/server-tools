@@ -1,3 +1,4 @@
-Flask==1.0.*
-paramiko
-uWSGI
+paho-mqtt~=1.5.0
+# paramiko~=2.7.1
+# scp~=0.13.2
+numpy

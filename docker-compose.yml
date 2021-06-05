@@ -1,12 +1,7 @@
 # docker-compose.yml
 version: '3'
 services:
-  flask:
-    image: dockerdaan/denoiser-flask
-
-  nginx:
-    image: dockerdaan/denoiser-nginx
-    ports:
-      - 5050:80
-    depends_on:
-      - flask
+  mqttcontrol:
+    image: dockerdaan/r510-denoiser:latest
+    devices:
+        - "/dev/ipmi0:/dev/ipmi0"

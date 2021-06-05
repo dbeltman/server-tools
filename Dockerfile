@@ -1,6 +1,7 @@
-FROM tiangolo/meinheld-gunicorn:python3.7-alpine3.8
+FROM python:3.8.3-slim
+COPY requirements.txt /app/requirements.txt
+WORKDIR /app
+RUN pip install -r requirements.txt && apt update && apt install ipmitool -y
+COPY . .
 
-RUN apk add make gcc musl-dev libffi-dev openssl-dev && \
-pip install flask paramiko && \
-echo "192.168.78.58 poweredge" >> /etc/hosts
-COPY ./ /app
+CMD [ "python", "./main.py" ]
