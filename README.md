@@ -1,6 +1,6 @@
 # R510-Denoiser
 ### MQTT-Enabled fan controller for Dell R510/Other IDRAC6 devices
-### Bonus: Automatically discovered by HomeAssistant if you have MQTT-discovery enabled on the mqtt-server.
+### Bonus: Automatically discovered by HomeAssistant if you have MQTT-discovery enabled in the mqtt integration.
 # 
 ## SECURITY WARNING
 For this project to work, you need to expose your /dev/ipmi0 device to this docker container which has not been tested at length. 
