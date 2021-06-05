@@ -1,1 +1,26 @@
-# MQTTControl
+# R510-Denoiser
+## MQTT-Enabled Fan Controller for Dell R510/Other IDRAC6 devices
+### Bonus: Automatically discovered by HomeAssistant if you have MQTT-discovery enabled on the mqtt-server.
+
+### Variables:
+#### Required:
+- `FANNAME` : Friendly name of the fan, dont use spaces because i dont normalise input sue me
+- `MQTTHOST`: ip-addres or hostname of the MQTT server
+#### Optional:
+- `MQTTPORT`: port of the MQTT Server, defaults to 1883
+- `MQTTCLIENTNAME`: Client name used to connect to the MQTT server, defaults to "r510-denoiser"
+- //TODO: add authentication stuff
+
+### Docker Installation :whale::
+#### Compose: (Swarm mode not supported because --device mapping)
+- `docker-compose up -d` 
+
+#### Portainer
+- Add new container with image `dockerdaan/r510-denoiser:latest`
+- Add required Environment variables to the "Env" tab
+- Add the following device mapping under the "Runtime & Resources" tab:  `/dev/ipmi0:/dev/ipmi0`
+
+### Usage
+- If installation was done correctly, a fan should appear in the HomeAssistant mqtt-integration
+- Manual Control can be done via the mqtt-topic: <FANNAME>/fansetpoint. 
+    - Accepted values: Whole numbers between 1-100 and "auto" for the default DELL fan-curve
