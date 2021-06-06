@@ -7,7 +7,7 @@
 # ipmitool raw 0x30 0x30 0x01 0x01 # Enable system FAN control
 # tested on FreeBSD 11.1 (FreeNAS) using `root` user
 
-echo "Dell R510 FAN control script v1.0"
+# echo "Dell R510 FAN control script v1.0"
 
 usage_example() {
         echo "Example usage:"
@@ -51,6 +51,15 @@ else
         elif [[ $1 == "status" ]]; then
                 echo "Current system status:"
                 ipmitool sensor | grep -iE "fan|temp" | awk -F"|" '{if($2!~"na"){print $1$2}}'
+        elif [[ $1 == "simplestats" ]]; then
+                ipmitool sensor | grep -E "1A|Temp" | awk -F"|" '{if($2!~"na"){print $1$2}}' | cut -d . -f 1 | rev | cut -d ' ' -f 1 | rev
+        elif [[ $1 == "fanspeed" ]]; then
+                fanrpm=`ipmitool sensor | grep -iE "fan" | grep "1A" | awk -F"|" '{if($2!~"na"){print $1$2}}' | awk '{print $5}'| cut -d . -f 1`
+                echo $(( 100 * fanrpm/11000 ))
+                
+        elif [[ $1 == "temperature" ]]; then
+                temp=`ipmitool sensor | sudo ipmitool sensor | grep -iE "temp" | awk -F"|" '{if($2!~"na"){print $1$2}}' | awk '{print $3}'`
+                echo "$temp"
         else
                 echo "Unknown parameter!"
                 usage_example
