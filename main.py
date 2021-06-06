@@ -5,7 +5,7 @@ import paho.mqtt.publish as mqtt_publish
 import json
 from numpy import interp
 
-mqtt_host = os.getenv('MQTTHOST', '192.168.1.101')
+mqtt_host = os.getenv('MQTTHOST', 'MQTT-Server')
 mqtt_port = os.getenv('MQTTPORT', 1883)
 fan_name = os.getenv('FANNAME', 'R510Fan')
 mqtt_control_topic = os.getenv('CONTROLTOPIC', '' + fan_name + '/fansetpoint')
@@ -31,7 +31,7 @@ config_template = {
     "identifiers": [
       fan_name.lower()
     ],
-    "sw_version": "todo"
+    "sw_version": "2.0"
   },
   "command_topic": mqtt_control_topic,
   "percentage_state_topic": mqtt_state_topic,

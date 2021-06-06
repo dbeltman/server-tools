@@ -1,7 +1,10 @@
 # docker-compose.yml
 version: '3'
 services:
-  mqttcontrol:
-    image: dockerdaan/r510-denoiser:latest
+  r510-denoiser:
+    build: . 
+    environment: 
+      - MQTTHOST=MQTT-Server
+      - FANNAME=TESTFAN
     devices:
         - "/dev/ipmi0:/dev/ipmi0"
