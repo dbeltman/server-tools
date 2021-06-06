@@ -1,0 +1,15 @@
+# docker-compose.yml
+version: '3'
+services:
+  r510-denoiser:
+    networks:
+      - apps
+    build: . 
+    environment: 
+      - MQTTHOST=MQTT-Server
+      - FANNAME=TESTFAN
+    devices:
+        - "/dev/ipmi0:/dev/ipmi0"
+networks: 
+  apps:
+    external: true
