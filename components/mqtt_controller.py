@@ -3,6 +3,7 @@ import os
 import paho.mqtt.publish as mqtt_publish
 mqtt_host = os.getenv('MQTTHOST', 'MQTT-Server')
 mqtt_port = os.getenv('MQTTPORT', 1883)
+
 fan_name = os.getenv('FANNAME', 'R510Fan')
 temp_sensor_name = os.getenv('TEMPNAME', fan_name + '-tempsensor')
 
