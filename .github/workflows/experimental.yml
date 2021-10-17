@@ -1,0 +1,49 @@
+name: Experimental CI to Docker Hub
+on:
+  push:
+    branches: [ experimental ]
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set ENVs
+        run: echo "BUILDNR=${GITHUB_RUN_NUMBER##*/}" >> $GITHUB_ENV      
+      - name: Check Out Repo 
+        uses: actions/checkout@v2
+        
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+            
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERUSERNAME }}
+          password: ${{ secrets.DOCKERACCESSTOKEN }}
+          
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags:  |
+            ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:experimental
+            ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:experimental-v0.${{ env.BUILDNR }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
