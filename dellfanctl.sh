@@ -56,7 +56,10 @@ else
         elif [[ $1 == "fanspeed" ]]; then
                 fanrpm=`ipmitool sensor | grep -iE "fan" | grep "1A" | awk -F"|" '{if($2!~"na"){print $1$2}}' | awk '{print $5}'| cut -d . -f 1`
                 echo $(( 100 * fanrpm/11000 ))
-                
+        elif [[ $1 == "statlist" ]]; then
+                ipmitool sensor
+        elif [[ $1 == "powerconsumption" ]]; then
+                ipmi-oem dell get-power-consumption-data | grep kWh | awk '{ print $4}'
         elif [[ $1 == "temperature" ]]; then
                 temp=`ipmitool sensor | sudo ipmitool sensor | grep -iE "temp" | awk -F"|" '{if($2!~"na"){print $1$2}}' | awk '{print $3}'`
                 echo "$temp"
