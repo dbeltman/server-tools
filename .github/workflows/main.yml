@@ -40,7 +40,7 @@ jobs:
           push: true
           tags:  |
             ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:latest
-            ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:${{ GITHUB_RUN_NUMBER }} 
+            ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:$GITHUB_RUN_NUMBER 
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           
