@@ -13,10 +13,10 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ master, dbeltman-patch-1 ]
+    branches: [ master, experimental ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ master, dbeltman-patch-1 ]
+    branches: [ master, experimental ]
   schedule:
     - cron: '45 11 * * 1'
 
