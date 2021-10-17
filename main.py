@@ -15,15 +15,23 @@ def on_message(client, userdata, msg):
     print("Message received-> " + msg.topic + ": " +
           str(msg.payload.decode('utf-8')))  # Print a received msg
     payload = msg.payload.decode('utf-8')
-    if 0 < int(payload) <= 100:
-        ipmi_controller.set_fanspeed(payload)
+    if isinstance(payload, int):
+        print ("payload is int")
+    elif isinstance(payload, str):
+        print ("payload is str")
     else:
+        print ("payload unknown type")
+        
+    if str(payload) == "auto":
         ipmi_controller.set_fanmode(payload)
+    elif 0 < int(payload) <= 100:
+        ipmi_controller.set_fanspeed(payload)
 
-getstats = Thread(target=ipmi_controller.get_ipmi_stats)
+
+# getstats = Thread(target=ipmi_controller.get_ipmi_stats)
+getstats = Thread(target=ipmi_controller.scrape_ipmi)
 getstats.start()
 
-# Create instance of client with client ID “digi_mqtt_test”
 client = mqtt.Client(mqtt_controller.mqtt_client_name)
 client.on_connect = on_connect  # Define callback function for successful connection
 client.on_message = on_message  # Define callback function for receipt of a message
