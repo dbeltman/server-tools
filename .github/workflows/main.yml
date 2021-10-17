@@ -38,7 +38,9 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags:  ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:latest
+          tags:  
+            - ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:latest
+            - ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:$(date +"%Y%m%d-%H%M%S")
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           
