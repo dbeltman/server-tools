@@ -12,7 +12,7 @@ Please consider the security risks of this, and deploy accordingly.
 
 ## Variables:
 #### Required:
-- `FANNAME` : Friendly name of the fan, dont use spaces because i dont normalise input sue me
+- `DEVICENAME` : Friendly name of the device, no spaces
 - `MQTTHOST`: ip-addres or hostname of the MQTT server
 #### Optional:
 - `MQTTPORT`: port of the MQTT Server, defaults to 1883
