@@ -2,8 +2,8 @@ import os
 
 device_name = os.getenv('DEVICENAME', 'Poweredge-R510')
 fan_name = os.getenv('FANNAME', '' + device_name + '-fan')  
-mqtt_control_topic = os.getenv('CONTROLTOPIC', '' + device_name + '/fansetpoint')
-mqtt_fanspeed_topic = os.getenv('STATETOPIC', '' + device_name + '/fanspeed')
+mqtt_control_topic = os.getenv('FANCONTROLTOPIC', '' + device_name + '/fansetpoint')
+mqtt_fanspeed_topic = os.getenv('FANSTATETOPIC', '' + device_name + '/fanspeed')
 
 fan_config_template = {
     "name": fan_name,
