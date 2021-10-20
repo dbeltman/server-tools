@@ -35,5 +35,5 @@ getstats.start()
 client = mqtt.Client(mqtt_controller.mqtt_client_name)
 client.on_connect = on_connect  # Define callback function for successful connection
 client.on_message = on_message  # Define callback function for receipt of a message
-client.connect(mqtt_controller.mqtt_host, 1883, 60)
+client.connect(mqtt_controller.mqtt_host, mqtt_controller.mqtt_port, 60)
 client.loop_forever()  # Start networking daemon
