@@ -34,6 +34,7 @@ def scrape_ipmi():
                     mqtt_controller.publish(mqtt_controller.mqtt_ambient_temp_topic, ambient_temp)
                     print ("Ambient temp: " + str(ambient_temp) + " degrees C")
             elif "FAN MOD 1A" in stat:
+                #Todo: make this more generic
                 fanpercent=round((float(get_stat_value(stat)) / 11000 * 100))
                 mqtt_controller.publish(mqtt_controller.mqtt_fanspeed_topic, fanpercent)
                 print (str(fanpercent) + "%")
@@ -45,7 +46,6 @@ def scrape_ipmi():
         mqtt_controller.publish(mqtt_controller.mqtt_energy_topic, float(powerconsumption))
 
         print (str(powerconsumption)+ " kWh") 
-        # print(statlist.split("\n"))
         sleep(30)
 
 def set_fanmode(mode):
