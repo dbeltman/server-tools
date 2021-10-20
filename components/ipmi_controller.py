@@ -11,7 +11,6 @@ def get_stat_value(stat):
 def get_ipmi_stats():
     while True:
         ipmistats = os.popen("bash /app/dellfanctl.sh simplestats").read()
-        # print(str(ipmistats))
         ipmistatlist = ipmistats.split("\n")
         ipmifanspeed = round(int(ipmistatlist[1]) / 11000 * 100)
         ipmitemp = int(ipmistatlist[0])
