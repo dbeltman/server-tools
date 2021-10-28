@@ -5,6 +5,7 @@ services:
     networks:
       - apps
     build: . 
+    image: dockerhub.evendaanbellen.nl/r510-denoiser:bleedingedge
     environment: 
       - MQTTHOST=MQTT-Server
       - FANNAME=TESTFAN

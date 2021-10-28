@@ -41,7 +41,7 @@ jobs:
           push: true
           tags:  |
             ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:latest
-            ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:${{ env.BUILDNR }}
+            ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:latest-v${{ env.BUILDNR }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           

@@ -128,3 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 docker-compose.localdev.yml
+R510Denoiser.code-workspace
+.vscode/settings.json
