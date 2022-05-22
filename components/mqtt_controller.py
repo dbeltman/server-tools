@@ -27,7 +27,8 @@ def publish(topic, payload):
                     hostname=mqtt_host,
                     client_id=mqtt_client_name,
                     port=mqtt_port,
-                    retain=True)
+                    retain=True,
+                    auth={'username':mqtt_username, 'password':mqtt_password})
 
 publish(fan_config_topic, json.dumps(fan_config.fan_config_template))
 publish(power_config_topic, json.dumps(power_config.power_config_template))
