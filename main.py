@@ -32,5 +32,6 @@ client = mqtt.Client(mqtt_controller.mqtt_client_name)
 client.on_connect = on_connect 
 client.on_message = on_message  
 client.username_pw_set(mqtt_controller.username, mqtt_controller.mqtt_password)
+print("Connecting to" + mqtt_controller.mqtt_host + " Using usr/pw: " + mqtt_controller.mqtt_username + "/" + mqtt_controller.mqtt_password)
 client.connect(mqtt_controller.mqtt_host, mqtt_controller.mqtt_port, 60)
 client.loop_forever()  # Start networking daemon
