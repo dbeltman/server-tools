@@ -6,7 +6,7 @@ def on_connect(client, userdata, flags, rc):
     print("Connected with result code {0}".format(str(rc)))
 
     client.subscribe(
-        mqtt_controller.mqtt_control_topic)
+        mqtt_controller.mqtt_control_topic, auth={'username':mqtt_controller.mqtt_username, 'password':mqtt_controller.mqtt_password})
 
 def on_message(client, userdata, msg):
     print("Message received-> " + msg.topic + ": " +
