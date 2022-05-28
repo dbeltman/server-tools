@@ -2,11 +2,12 @@ from components import mqtt_controller,ipmi_controller
 from threading import Thread
 import paho.mqtt.client as mqtt
 
+mqtt_subscribe_topics = [(mqtt_controller.mqtt_control_topic ,0),(mqtt_controller.mqtt_chassispower_topic,0)]
+
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code {0}".format(str(rc)))
 
-    client.subscribe(
-        mqtt_controller.mqtt_control_topic)
+    client.subscribe(mqtt_subscribe_topics)
 
 def on_message(client, userdata, msg):
     print("Message received-> " + msg.topic + ": " +
