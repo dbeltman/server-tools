@@ -2,7 +2,16 @@ import os
 from numpy import interp
 from components import mqtt_controller
 from time import sleep
-import statistics
+
+ipmi_host = os.getenv('IPMIHOST')
+ipmi_username = os.getenv('IPMIUSERNAME')
+ipmi_password = os.getenv('IPMIPASSWORD')
+
+if ipmi_host and ipmi_username and ipmi_password:
+    print("Remote IPMI interface detected")
+    ipmi_base_command = "ipmitool -H " + ipmi_host + " -U " + ipmi_username + "-P " + ipmi_password
+else:
+    ipmi_base_command = "ipmitool"
 
 def get_stat_value(stat):
     value=stat.split("|")[1].strip()
@@ -24,8 +33,7 @@ def get_ipmi_stats():
 
 def scrape_ipmi():
     while True:
-        statlist = os.popen("bash /app/dellfanctl.sh statlist").read()
-        rpmlist=[]
+        statlist = os.popen(ipmi_base_command + "sensor").read()
         for stat in statlist.split("\n"):
             if "Ambient" in stat:
                 if "degrees C" in stat:
