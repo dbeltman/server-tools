@@ -20,7 +20,7 @@ def get_stat_value(stat):
     return value
 
 def power_on():
-    action = os.popen(ipmi_oem_base_command + " chassis power on").read()
+    action = os.popen(ipmi_base_command + " chassis power on").read()
     return action
 
 def scrape_ipmi():
