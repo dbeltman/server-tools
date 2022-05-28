@@ -5,6 +5,8 @@ from templates import fan_config, temperature_config, power_config, energy_confi
 
 mqtt_host = os.getenv('MQTTHOST', 'MQTT-Server')
 mqtt_port = os.getenv('MQTTPORT', 1883)
+mqtt_username = os.getenv('MQTTUSERNAME', 'iot')
+mqtt_password = os.getenv('MQTTPASSWORD', 'changeme')
 mqtt_client_name = os.getenv('MQTTCLIENTNAME', 'r510-denoiser')
 
 device_name = os.getenv('DEVICENAME', 'Poweredge-R510')
@@ -25,7 +27,8 @@ def publish(topic, payload):
                     hostname=mqtt_host,
                     client_id=mqtt_client_name,
                     port=mqtt_port,
-                    retain=True)
+                    retain=True,
+                    auth={'username':mqtt_username, 'password':mqtt_password})
 
 publish(fan_config_topic, json.dumps(fan_config.fan_config_template))
 publish(power_config_topic, json.dumps(power_config.power_config_template))
