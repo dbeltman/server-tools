@@ -22,7 +22,7 @@ mqtt_control_topic  = fan_config.mqtt_control_topic
 mqtt_fanspeed_topic = fan_config.mqtt_fanspeed_topic
 mqtt_power_topic = power_config.mqtt_power_topic
 mqtt_chassispower_topic = chassispower_config.mqtt_button_topic
-
+mqtt_chassispower_avt_topic = chassispower_config.mqtt_button_availability_topic
 def publish(topic, payload):
     print("Publishing " +str(payload) + " @" + str(topic))
     mqtt_publish.single(topic, payload,
@@ -37,3 +37,4 @@ publish(power_config_topic, json.dumps(power_config.power_config_template))
 publish(energy_config_topic, json.dumps(energy_config.energy_config_template))
 publish(temp_config_topic, json.dumps(temperature_config.temp_config_template))
 publish(chassispower_config_topic, json.dumps(chassispower_config.chassispower_config_template))
+publish(mqtt_chassispower_avt_topic, "online")
