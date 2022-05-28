@@ -30,7 +30,10 @@ def scrape_ipmi():
                     print ("Ambient temp: " + str(ambient_temp) + " degrees C")
             elif "FAN MOD 1A" in stat:
                 #Todo: make this more generic
-                fanpercent=round((float(get_stat_value(stat)) / 11000 * 100))
+                if get_stat_value(stat) != "na":
+                    fanpercent=round((float(get_stat_value(stat)) / 11000 * 100))
+                else: 
+                    fanpercent=0
                 mqtt_controller.publish(mqtt_controller.mqtt_fanspeed_topic, fanpercent)
                 print (str(fanpercent) + "%")
             elif "System Level" in stat:
