@@ -23,7 +23,7 @@ def on_message(client, userdata, msg):
     if str(payload) == "auto":
         ipmi_controller.set_fanmode(payload)
     elif str(payload) == "poweron":
-        ipmi_controller.power_on
+        ipmi_controller.power_on()
     elif 0 < int(payload) <= 100:
         ipmi_controller.set_fanspeed(payload)
 
