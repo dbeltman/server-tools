@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: r510-denoiser
+  labels:
+    app: r510-denoiser
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: r510-denoiser
+  template:
+    metadata:
+      labels:
+        app: r510-denoiser
+    spec:
+      containers:
+        - name: app
+          image: dockerdaan/r510-denoiser:experimental
+          imagePullPolicy: Always
+          envFrom:
+          - secretRef:
+              name: denoiser-secret
