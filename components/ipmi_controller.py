@@ -37,7 +37,10 @@ def scrape_ipmi():
                 mqtt_controller.publish(mqtt_controller.mqtt_fanspeed_topic, fanpercent)
                 print (str(fanpercent) + "%")
             elif "System Level" in stat:
-                wattage=get_stat_value(stat)
+                if get_stat_value(stat) != "na":
+                    wattage=get_stat_value(stat)
+                else: 
+                    wattage=0
                 mqtt_controller.publish(mqtt_controller.mqtt_power_topic, wattage)
                 print (wattage)
         powerconsumption = os.popen(ipmi_oem_base_command + " dell get-power-consumption-data | grep kWh | awk '{ print $4}'").read()
