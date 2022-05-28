@@ -14,7 +14,7 @@ fan_config_topic = os.getenv('DISCOTOPIC', 'homeassistant/fan/' + fan_config.fan
 temp_config_topic = os.getenv('DISCOTOPIC', 'homeassistant/sensor/' + temperature_config.temp_sensor_name + '/config')
 power_config_topic = os.getenv('DISCOTOPIC', 'homeassistant/sensor/' + power_config.power_sensor_name + '/config')
 energy_config_topic = os.getenv('DISCOTOPIC', 'homeassistant/sensor/' + energy_config.energy_sensor_name + '/config')        
-chassispower_config_topic = os.getenv('DISCOTOPIC', 'homeassistant/sensor/' + chassispower_config.button_name + '/config')
+chassispower_config_topic = os.getenv('DISCOTOPIC', 'homeassistant/button/' + chassispower_config.button_name + '/config')
 
 mqtt_energy_topic = energy_config.mqtt_energy_topic
 mqtt_ambient_temp_topic = temperature_config.mqtt_ambient_temp_topic
