@@ -17,11 +17,10 @@ chassispower_config_template = {
         ],
         "sw_version": "2.0"
     },
-    "state_topic": mqtt_button_topic,
+    "command_topic": mqtt_button_topic,
     "availability": {
         "topic": mqtt_button_availability_topic
     },
-    "entity_category": "config",
     "device_class": "restart",
     "payload_press": "poweron"
 }
