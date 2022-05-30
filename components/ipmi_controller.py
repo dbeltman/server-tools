@@ -20,9 +20,11 @@ def get_stat_value(stat):
     return value
 
 def power_on():
-    action = os.popen(ipmi_base_command + " chassis power on").read()
-    return action
-
+    try:    
+        action = os.popen(ipmi_base_command + " chassis power on").read()
+        return action
+    except:
+        print("ERROR: Something went wrong powering up the host!")
 def scrape_ipmi():
     while True:
         try:
@@ -42,24 +44,30 @@ def scrape_ipmi():
                 else: 
                     fanpercent=0
                 mqtt_controller.publish(mqtt_controller.mqtt_fanspeed_topic, fanpercent)
-                print (str(fanpercent) + "%")
+                # print (str(fanpercent) + "%")
             elif "System Level" in stat:
                 if get_stat_value(stat) != "na":
                     wattage=get_stat_value(stat)
                 else: 
                     wattage=0
                 mqtt_controller.publish(mqtt_controller.mqtt_power_topic, wattage)
-                print (wattage)
-        powerconsumption = os.popen(ipmi_oem_base_command + " dell get-power-consumption-data | grep kWh | awk '{ print $4}'").read()
-        mqtt_controller.publish(mqtt_controller.mqtt_energy_topic, float(powerconsumption))
+                # print (wattage)
+        try:
+            powerconsumption = os.popen(ipmi_oem_base_command + " dell get-power-consumption-data | grep kWh | awk '{ print $4}'").read()
+            mqtt_controller.publish(mqtt_controller.mqtt_energy_topic, float(powerconsumption))
+        except:
+            print("ERROR: Something went wrong getting powerconsumption stats")
 
-        print (str(powerconsumption)+ " kWh") 
+        # print (str(powerconsumption)+ " kWh") 
         sleep(30)
 
 def set_fanmode(mode):
     if mode == 'auto':
         print('setting to auto')
-        os.system(ipmi_base_command + " raw 0x30 0x30 0x01 0x01")
+        try:
+            os.system(ipmi_base_command + " raw 0x30 0x30 0x01 0x01")
+        except:
+            print("ERROR: Something went wrong setting fan to auto")
     else:
         print("Received invalid command, What Do?")
 
@@ -73,5 +81,8 @@ def set_fanspeed(payload):
         hexpayload = hex(safepayload)
     print("setting to " + str(safepayload) +
             "original payload was:" + str(payload))
-    os.system(ipmi_base_command + " raw 0x30 0x30 0x01 0x00")
-    os.system(ipmi_base_command + " raw 0x30 0x30 0x02 0xff " + hexpayload)
+    try:
+        os.system(ipmi_base_command + " raw 0x30 0x30 0x01 0x00")
+        os.system(ipmi_base_command + " raw 0x30 0x30 0x02 0xff " + hexpayload)
+    except:
+        print("ERROR: Something went wrong setting the fans to " + safepayload + "!")
