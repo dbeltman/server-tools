@@ -25,7 +25,10 @@ def power_on():
 
 def scrape_ipmi():
     while True:
-        statlist = os.popen(ipmi_base_command + " sensor").read()
+        try:
+            statlist = os.popen(ipmi_base_command + " sensor").read()
+        except:
+            print("ERROR: something went wrong running the '" + ipmi_base_command+ " sensor' command!")
         for stat in statlist.split("\n"):
             if "Ambient" in stat:
                 if "degrees C" in stat:
