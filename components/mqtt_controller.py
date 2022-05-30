@@ -25,16 +25,22 @@ mqtt_chassispower_topic = chassispower_config.mqtt_button_topic
 mqtt_chassispower_avt_topic = chassispower_config.mqtt_button_availability_topic
 def publish(topic, payload):
     print("Publishing " +str(payload) + " @" + str(topic))
-    mqtt_publish.single(topic, payload,
-                    hostname=mqtt_host,
-                    client_id=mqtt_client_name,
-                    port=mqtt_port,
-                    retain=True,
-                    auth={'username':mqtt_username, 'password':mqtt_password})
+    try:
+        mqtt_publish.single(topic, payload,
+                        hostname=mqtt_host,
+                        client_id=mqtt_client_name,
+                        port=mqtt_port,
+                        retain=True,
+                        auth={'username':mqtt_username, 'password':mqtt_password})
+    except:
+        print("ERROR: Something went wrong publishing '" + payload + "' to topic '" + topic + "'!")
 
-publish(fan_config_topic, json.dumps(fan_config.fan_config_template))
-publish(power_config_topic, json.dumps(power_config.power_config_template))
-publish(energy_config_topic, json.dumps(energy_config.energy_config_template))
-publish(temp_config_topic, json.dumps(temperature_config.temp_config_template))
-publish(chassispower_config_topic, json.dumps(chassispower_config.chassispower_config_template))
-publish(mqtt_chassispower_avt_topic, "online")
+try:       
+    publish(fan_config_topic, json.dumps(fan_config.fan_config_template))
+    publish(power_config_topic, json.dumps(power_config.power_config_template))
+    publish(energy_config_topic, json.dumps(energy_config.energy_config_template))
+    publish(temp_config_topic, json.dumps(temperature_config.temp_config_template))
+    publish(chassispower_config_topic, json.dumps(chassispower_config.chassispower_config_template))
+    publish(mqtt_chassispower_avt_topic, "online")
+except:
+    print("Something went wrong publishing configs to discovery topic!")
