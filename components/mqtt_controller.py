@@ -33,7 +33,7 @@ def publish(topic, payload):
                         retain=True,
                         auth={'username':mqtt_username, 'password':mqtt_password})
     except:
-        print("ERROR: Something went wrong publishing '" + payload + "' to topic '" + topic + "'!")
+        print("ERROR: Something went wrong publishing '" + str(payload) + "' to topic '" + str(topic) + "'!")
 
 try:       
     publish(fan_config_topic, json.dumps(fan_config.fan_config_template))
