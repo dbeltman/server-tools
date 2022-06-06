@@ -8,8 +8,12 @@ def on_connect(client, userdata, flags, rc):
     # print("Connected with result code {0}".format(str(rc)))
     try:
         client.subscribe(mqtt_subscribe_topics)
+        # print("Connected to MQTT.")
     except:
         print("ERROR: Something went wrong subscribing to " + str(mqtt_subscribe_topics))
+
+# def on_disconnect(client, userdata, rc):
+    # print("ERROR: Disconnected from MQTT!!")
 
 def on_message(client, userdata, msg):
     print("Message received-> " + msg.topic + ": " +
@@ -36,6 +40,7 @@ getstats.start()
 
 client = mqtt.Client(mqtt_controller.mqtt_client_name)
 client.on_connect = on_connect 
+# client.on_disconnect = on_disconnect
 client.on_message = on_message  
 client.username_pw_set(mqtt_controller.mqtt_username, mqtt_controller.mqtt_password)
 client.connect(mqtt_controller.mqtt_host, mqtt_controller.mqtt_port, 60)
