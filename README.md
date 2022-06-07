@@ -9,6 +9,8 @@ IPMI has a lot more functionality than just fan control (power off entire chassi
 
 Please consider the security risks of this, and deploy accordingly.
 
+Recently added remote IPMI support, but same principle stands
+
 ## Additional metrics
 #### The following metrics are also available
 - "Ambient" Inlet air temperature (degrees C)
