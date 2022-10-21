@@ -9,6 +9,8 @@ IPMI has a lot more functionality than just fan control (power off entire chassi
 
 Please consider the security risks of this, and deploy accordingly.
 
+Recently added remote IPMI support, but same principle stands
+
 ## Additional metrics
 #### The following metrics are also available
 - "Ambient" Inlet air temperature (degrees C)
@@ -19,6 +21,12 @@ Please consider the security risks of this, and deploy accordingly.
 
 
 ## Setup :whale:
+
+#### Kubernetes:
+- Create a new secret containing your connection details (Not all options are required, see "Variables" below!)`kubectl create secret generic denoiser-secret --from-literal=MQTTHOST=changeme --from-literal=MQTTUSERNAME=changeme --from-literal=MQTTPASSWORD=changeme --from-literal=IPMIHOST=changeme --from-literal=IPMIUSERNAME=changeme --from-literal=IPMIPASSWORD=changeme --from-literal=DEVICENAME=Your-Friendly-Name`
+- `kubectl apply -f -n yournamespace k8s/deployment.yaml`. Or use argoCD/flux and sealed-secrets, i'm not your mom
+- Profit
+
 
 #### Docker Run
 - `docker run --rm --name R510-Denoiser --device /dev/ipmi0:/dev/ipmi0 -e MQTTHOST=localhost -e DEVICENAME=MyServer dockerdaan/r510-denoiser:latest`
@@ -33,9 +41,15 @@ Please consider the security risks of this, and deploy accordingly.
 
 ### Variables
 #### Required
-- `DEVICENAME` : Friendly name of the device, no spaces. Will default to "Poweredge-R510"
+##### MQTT-Settings
 - `MQTTHOST`: ip-addres or hostname of the MQTT server
 #### Optional
+##### IPMI (REQUIRED in kubernetes! todo: device passthrough k8s)
+- `IPMIHOST`: Hostname/IP address of your IPMI interface (iDrac IP)
+- `IPMIUSERNAME`: Username of your IPMI interface (iDrac username)
+- `IPMIPASSWORD`: Password of your IPMI user (iDrac password)
+##### MQTT-Settings
+- `DEVICENAME` : Friendly name of the device, no spaces. Will default to "Poweredge-R510"
 - `MQTTPORT`: port of the MQTT Server, defaults to 1883
 - `MQTTCLIENTNAME`: Client name used to connect to the MQTT server, defaults to "r510-denoiser"
 - `DISCOTOPIC`: discovery topic for homeassistant, only change this if you have a custom topic set in homeassistant
@@ -48,7 +62,6 @@ Please consider the security risks of this, and deploy accordingly.
 - `TEMPSTATETOPIC`: Temperature state topic, defaults to "`$DEVICENAME`/ambienttemp"
 - `POWERSTATETOPIC`: Power usage state topic, defaults to "`$DEVICENAME`/powerusage"
 - `ENERGYSTATETOPIC`: Energy consumption state topic, defaults to "`$DEVICENAME`/energyusage"
-- //TODO: add authentication stuff
 
 ### Usage
 - If installation was done correctly, a new device should appear in the HomeAssistant mqtt-integration 
