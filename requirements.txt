@@ -1,4 +1,4 @@
-paho-mqtt==1.5.1
+paho-mqtt==1.6.1
 # paramiko~=2.7.1
 # scp~=0.13.2
 numpy
