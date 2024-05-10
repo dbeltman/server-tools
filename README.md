@@ -29,10 +29,10 @@ Recently added remote IPMI support, but same principle stands
 
 
 #### Docker Run
-- `docker run --rm --name R510-Denoiser --device /dev/ipmi0:/dev/ipmi0 -e MQTTHOST=localhost -e DEVICENAME=MyServer dockerdaan/r510-denoiser:latest`
+- `docker run --rm --name R510-Denoiser --device /dev/ipmi0:/dev/ipmi0 -e MQTTHOST=localhost -e DEVICENAME=MyServer ghcr.io/dbeltman/r510-denoiser:master`
 
 #### Portainer
-- Add new container with image `dockerdaan/r510-denoiser:latest`
+- Add new container with image `ghcr.io/dbeltman/r510-denoiser:master`
 - Add required Environment variables to the "Env" tab
 - Add the following device mapping under the "Runtime & Resources" tab:  `/dev/ipmi0:/dev/ipmi0`
 

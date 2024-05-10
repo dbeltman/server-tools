@@ -2,7 +2,7 @@
 version: '3'
 services:
   r510-denoiser:
-    image: dockerdaan:r510-denoiser:latest
+    image: ghcr.io/dbeltman/r510-denoiser:master
     environment: 
       - MQTTHOST=MQTT-Server
       - FANNAME=TESTFAN

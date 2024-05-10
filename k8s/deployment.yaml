@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: dockerdaan/r510-denoiser:experimental
+          image: ghcr.io/dbeltman/r510-denoiser:experimental
           imagePullPolicy: Always
           envFrom:
           - secretRef:
