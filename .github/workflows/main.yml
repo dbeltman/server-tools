@@ -1,49 +1,41 @@
-name: CI to Docker Hub
+name: Create and publish a Docker image
+
 on:
   push:
-    branches: [ master, dockercicd2 ]
-jobs:
+    branches: ['master']
 
-  build:
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
-      - name: Set ENVs
-        run: echo "BUILDNR=${GITHUB_RUN_NUMBER##*/}" >> $GITHUB_ENV      
-      - name: Check Out Repo 
-        uses: actions/checkout@v2
-        
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
-        
-      - name: Cache Docker layers
-        uses: actions/cache@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@3d58c274f17dffee475a5520cbe67f0a882c4dbb
         with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-            
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81
         with:
-          username: ${{ secrets.DOCKERUSERNAME }}
-          password: ${{ secrets.DOCKERACCESSTOKEN }}
-          
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@4976231911ebf5f32aad765192d35f942aa48cb8
         with:
-          context: ./
-          file: ./Dockerfile
-          builder: ${{ steps.buildx.outputs.name }}
+          context: .
           push: true
-          tags:  |
-            ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:latest
-            ${{ secrets.DOCKERUSERNAME }}/r510-denoiser:latest-v${{ env.BUILDNR }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
-          
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
