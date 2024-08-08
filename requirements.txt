@@ -2,3 +2,4 @@ paho-mqtt==1.6.1
 # paramiko~=2.7.1
 # scp~=0.13.2
 numpy
+numpy>=1.21.0rc1 # not directly required, pinned by Snyk to avoid a vulnerability
